@@ -1,8 +1,8 @@
 import { ASSETS } from "../../constants/assets/assets";
 import { paymentProviders } from "../../constants/payment-services/payment-providers";
-import "./Test.css";
+import "./Payment.css";
 
-export function TestComponent() {
+export function Payment() {
   return (
     <>
       <div className="main">
@@ -49,12 +49,15 @@ export function TestComponent() {
             <p className="rate">Good Rate</p>
             <div className="stars_container">
               <ul className="stars">
-                <li className="star">1</li>
-                <li className="star">2</li>
-                <li className="star">3</li>
-                <li className="star">4</li>
-                <li className="star">5</li>
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <li key={star} className="star star_rate">
+                    ★
+                  </li>
+                ))}
               </ul>
+            </div>
+            <div className="text">
+              <textarea placeholder="Rate Service" />
             </div>
             <button type="submit">Rate Service</button>
           </form>

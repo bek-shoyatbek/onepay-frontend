@@ -34,11 +34,11 @@ body {
   height: 30%;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(26, 26, 26, 1));
 }
+
 .waiter_info {
   display: flex;
   align-items: center;
   padding: 20px;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .waiter_info img {
@@ -66,7 +66,7 @@ body {
 }
 
 .waiter_stars {
-  margin-top: 5px;
+  margin-top: -10px;
 }
 
 .waiter_stars .stars {
@@ -77,27 +77,25 @@ body {
 
 .waiter_stars .star {
   color: gold;
-  font-size: 18px;
+  font-size: 20px;
   margin-right: 2px;
 }
 
 .billing_type {
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 .btn_container {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .btn_container button {
-  padding: 10px 20px;
+  padding: 14px 50px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
+  border-radius: 0px !important;
+  font-size: 20px;
 }
 
 .btn_container button.active {
@@ -112,21 +110,26 @@ body {
 
 .total_amount {
   text-align: center;
+
   padding: 20px 0;
 }
 
 .total_amount h1 {
-  font-size: 36px;
+  font-size: 26px;
   margin: 0;
 }
 
 .tip_container {
   padding: 20px 0;
   text-align: center;
+  background-color: #2d2c2c;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .tip_percentage_title {
   margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .tip_percentage .percentage {
@@ -138,8 +141,8 @@ body {
 }
 
 .tip_percentage .percentage li {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
   color: white;
@@ -174,6 +177,7 @@ body {
 
 .bill_details {
   padding: 20px 0;
+  background-color: #2d2c2c;
 }
 
 .bill_details table {
@@ -224,6 +228,7 @@ body {
 
 .payment_providers_container1 {
   padding: 20px 0;
+  background-color: #2d2c2c;
 }
 
 .payment-providers1 h2 {
@@ -268,6 +273,7 @@ body {
 .add_card_container {
   padding: 20px 0;
   text-align: center;
+  background-color: #2d2c2c;
 }
 
 .add_card_container button {
@@ -306,4 +312,16 @@ body {
   .background_image {
     height: 50vh;
   }
+}
+
+.star_rate {
+  color: red !important;
+  font-size: 50px !important;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 }
