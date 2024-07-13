@@ -1,6 +1,8 @@
 import { ASSETS } from "../../constants/assets/assets";
 import { paymentProviders } from "../../constants/payment-services/payment-providers";
 import "./Payment.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 export function Payment() {
   return (
@@ -39,10 +41,11 @@ export function Payment() {
           <h1 className="tip_percentage_title"> Tip Percentage</h1>
           <div className="tip_percentage">
             <ul className="percentage">
+              <li className="percentage">0%</li>
+              <li className="percentage">5%</li>
+              <li className="percentage">10%</li>
               <li className="percentage">15%</li>
               <li className="percentage">20%</li>
-              <li className="percentage">25%</li>
-              <li className="percentage">30%</li>
             </ul>
           </div>
           <form action="/" className="rate_service">
@@ -56,41 +59,59 @@ export function Payment() {
                 ))}
               </ul>
             </div>
-            <div className="text">
-              <textarea placeholder="Rate Service" />
+            <div className="feedback_container">
+              <input
+                type="text"
+                placeholder="Write your feedback..."
+                className="feedback_input"
+              />
+              <button type="submit" className="send_button">
+                <span className="send_icon">
+                  <FontAwesomeIcon
+                    icon={faPaperPlane}
+                    size="xl"
+                    color="white"
+                  />
+                </span>
+              </button>
             </div>
-            <button type="submit">Rate Service</button>
           </form>
         </div>
         <div className="bill_details">
           <table>
-            <tr>
-              <th>Total: </th>
-              <th>Tip: </th>
-              <th>Service commission: </th>
-            </tr>
-            <tr>
-              <td>$50.00</td>
-              <td>$6.00</td>
-              <td>$2.00</td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>Total:</th>
+                <td>$50.00</td>
+              </tr>
+              <tr>
+                <th>Tip:</th>
+                <td>$6.00</td>
+              </tr>
+              <tr>
+                <th>Service commission:</th>
+                <td>$2.00</td>
+              </tr>
+            </tbody>
           </table>
-          <h2 className="total_amount">Total Amount</h2>
-          <h1>$58</h1>
+          <div className="total_amount">
+            <h2>Total Amount</h2>
+            <h1>$58</h1>
+          </div>
         </div>
-        <div className="payment_providers_container1">
-          <div className="payment-providers1">
-            <h2>Choose Payment Method</h2>
+        <div className="payment_providers_container">
+          <h2>Choose Payment Method</h2>
+          <div className="payment-providers">
             {paymentProviders.map((provider) => (
               <button
                 key={provider.name}
                 onClick={() => alert(provider.name)}
-                className="provider-button1"
+                className="provider-button"
               >
                 <img
                   src={provider.icon}
                   alt={provider.name}
-                  className="provider-icon1"
+                  className="provider-icon"
                 />
               </button>
             ))}
