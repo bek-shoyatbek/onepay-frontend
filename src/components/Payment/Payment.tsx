@@ -35,7 +35,7 @@ export function Payment() {
         </div>
         <div className="total_amount">
           <h1>Total Amount</h1>
-          <h2>$0.00</h2>
+          <h2>1 000 000</h2>
         </div>
         <div className="tip_container">
           <h1 className="tip_percentage_title"> Tip Percentage</h1>
@@ -117,10 +117,12 @@ export function Payment() {
             ))}
           </div>
         </div>
-        <div className="add_card_container">
-          <button type="button">Add Card +</button>
+        <div className="btns">
+          <div className="add_card_container">
+            <button type="button">Add Card +</button>
+          </div>
+          <button className="pay_btn">Pay Now</button>
         </div>
-        <button className="pay_btn">Pay Now</button>
       </div>
     </>
   );
