@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  padding: 0;
   background-color: #1b1b1b;
   color: white;
   font-family: Arial, sans-serif;
@@ -84,10 +83,11 @@ body {
 
 .btn_container {
   display: flex;
-  margin: 0 0px;
+  margin: 0 0;
   justify-content: center;
   height: 65px;
   width: 100%;
+  background-color: #363636;
 }
 
 .btn_container button {
@@ -102,7 +102,7 @@ body {
 }
 
 .btn_container button:not(.active) {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #363636;
   color: white;
 }
 
@@ -121,7 +121,7 @@ body {
   font-size: 40px;
 }
 
-.tip_container {
+.second_section {
   padding: 20px 0;
   text-align: center;
   background-color: #2d2c2c;
@@ -140,10 +140,9 @@ body {
   justify-content: center;
   gap: 15px;
 }
-
 .tip_percentage .percentage li {
   width: 70px;
-  height: 60px;
+  height: 57px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
   color: white;
@@ -153,7 +152,6 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
 .tip_percentage .percentage li.active {
   background-color: #ca4b49;
 }
@@ -184,25 +182,22 @@ body {
 }
 
 .bill_details table {
-  width: 90%;
+  width: 100%;
   border-collapse: separate;
-  border-spacing: 0 10px;
+  border-spacing: 0 5px;
 }
 
 .bill_details th,
 .bill_details td {
-  padding: 10px;
+  padding: 20px;
+  background-color: #3d3d3d;
+  width: 100%;
   text-align: left;
 }
 
 .bill_details th {
   font-weight: bold;
-  width: 60%;
-}
-
-.bill_details td {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
+  width: 100%;
 }
 
 .bill_details .total_amount {
@@ -255,11 +250,11 @@ body {
 .provider-button:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
-
 .provider-icon {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  filter: brightness(-3) invert(5);
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -277,8 +272,9 @@ body {
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  background-color: #2d2c2c;
+  gap: 3px;
+  margin: 0 5px;
+  margin-left: -5px;
 }
 
 .add_card_container {
@@ -292,7 +288,6 @@ body {
   border-radius: 5px;
   background-color: transparent;
   color: white;
-  cursor: pointer;
   font-size: 16px;
 }
 
@@ -375,4 +370,22 @@ body {
 
 .btns {
   padding: 10px;
+}
+
+/* Star rating clickable buttons */
+.rate_service .stars_container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.rate_service .stars_container .star {
+  font-size: 40px;
+  color: #888; /* Initial gray color */
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.rate_service .stars_container .star.active {
+  color: #ca4b49; /* Red color for active stars */
 }
