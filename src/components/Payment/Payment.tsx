@@ -2,8 +2,8 @@ import { ASSETS } from "../../constants/assets/assets";
 import { paymentProviders } from "../../constants/payment-services/payment-providers";
 import "./Payment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { faMoon, faPaperPlane, faSun } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 
 export function Payment() {
   const [activeButton, setActiveButton] = useState("bill_and_tip");
@@ -11,6 +11,7 @@ export function Payment() {
   const [selectedTip, setSelectedTip] = useState(0);
   const [billAmount, _] = useState(1000000); // Initial bill amount
   const [totalAmount, setTotalAmount] = useState(billAmount);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   const handleButtonClick = (buttonType: string) => {
     setActiveButton(buttonType);
@@ -25,9 +26,19 @@ export function Payment() {
     const tipAmount = billAmount * (tipPercentage / 100);
     setTotalAmount(billAmount + tipAmount);
   };
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  useEffect(() => {
+    document.body.classList.toggle("light-mode", !isDarkMode);
+  }, [isDarkMode]);
 
   return (
     <>
+      <button className="theme-toggle" onClick={toggleTheme}>
+        <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} color="white" />
+      </button>
       <div className="main">
         <div className="background_image">
           <img src={ASSETS.backgroundImage} alt="background-image" />
@@ -35,8 +46,8 @@ export function Payment() {
         <div className="waiter_info">
           <img src={ASSETS.waiterImage} alt="waiter-image" />
           <div className="waiter_details">
-            <span className="waiter_status">Waiter</span>
-            <h1>Waiter Name</h1>
+            <span className="waiter_status">Официант</span>
+            <h1>Бекиев Андрей</h1>
             <div className="waiter_stars">
               <ul className="stars">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -56,7 +67,7 @@ export function Payment() {
               }`}
               onClick={() => handleButtonClick("bill_and_tip")}
             >
-              Bill and Tip
+              Счет и чаевые
             </button>
             <button
               className={`bill_only ${
@@ -64,17 +75,17 @@ export function Payment() {
               }`}
               onClick={() => handleButtonClick("bill_only")}
             >
-              Bill Only
+              Только чаевые
             </button>
           </div>
         </div>
         <div className="total_amount">
-          <h1>Total Amount</h1>
+          <h1>Сумма счета</h1>
           <h2>{totalAmount.toLocaleString()}</h2>
         </div>
 
         <div className="second_section">
-          <h1 className="tip_percentage_title">Tip Percentage</h1>
+          <h1 className="tip_percentage_title">Оставьте чаевые</h1>
           <div className="tip_percentage">
             <ul className="percentage">
               {[0, 5, 10, 15, 20].map((percentage) => (
@@ -92,7 +103,7 @@ export function Payment() {
           </div>
 
           <div className="rate_service">
-            <p className="rate">Good Rate</p>
+            <p className="rate">Отлично 😊</p>
             <div className="stars_container">
               {[1, 2, 3, 4, 5].map((star) => (
                 <span
@@ -107,7 +118,7 @@ export function Payment() {
             <div className="feedback_container">
               <input
                 type="text"
-                placeholder="Write your feedback..."
+                placeholder="Оставить свой отзыв"
                 className="feedback_input"
               />
               <button type="submit" className="send_button">
@@ -126,27 +137,27 @@ export function Payment() {
           <table>
             <tbody>
               <tr>
-                <th>Total:</th>
-                <td>${billAmount.toLocaleString()}</td>
+                <th>Счет:</th>
+                <td>{billAmount.toLocaleString()} сум</td>
               </tr>
               <tr>
-                <th>Tip:</th>
-                <td>${(totalAmount - billAmount).toLocaleString()}</td>
+                <th>Чаевые(5%)</th>
+                <td>{(totalAmount - billAmount).toLocaleString()} сум</td>
               </tr>
               <tr>
-                <th>Service fee:</th>
-                <td>${(totalAmount * 0.1).toLocaleString()}</td>
+                <th>Комиссия сервиса(5%)</th>
+                <td>{(totalAmount * 0.1).toLocaleString()} сум</td>
               </tr>
             </tbody>
           </table>
           <div className="total_amount">
-            <h2>Total Amount</h2>
+            <h2>Итоговая оплата</h2>
             <h1>{totalAmount.toLocaleString()}</h1>
           </div>
         </div>
 
         <div className="payment_providers_container">
-          <h2>Choose Payment Method</h2>
+          <h2>Выберите способ оплаты</h2>
           <div className="payment-providers">
             {paymentProviders.map((provider) => (
               <button
@@ -165,10 +176,27 @@ export function Payment() {
         </div>
         <div className="btns">
           <div className="add_card_container">
-            <button type="button">Add Card +</button>
+            <button type="button">
+              Добавить карту <span className="plus">+</span>{" "}
+            </button>
           </div>
-          <button className="pay_btn">Pay Now</button>
+          <button className="pay_btn">Оплатить</button>
         </div>
+        <footer className="footer">
+          <p className="footer_text">
+            Нажимая “Оплатить” вы соглашаетесь с{" "}
+            <a href="http://google.com" className="footer_link">
+              условиями публичной оферты
+            </a>{" "}
+            и{" "}
+            <a href="http://google.com" className="footer_link">
+              политикой персональных данных и конфиденциальности
+            </a>
+          </p>
+          <a href="http://google.com" className="chat_manager">
+            Связаться с менеджером
+          </a>
+        </footer>
       </div>
     </>
   );

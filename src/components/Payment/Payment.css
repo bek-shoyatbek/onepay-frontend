@@ -200,6 +200,11 @@ body {
   width: 100%;
 }
 
+.bill_details td {
+  font-weight: bolder;
+  font-size: large;
+}
+
 .bill_details .total_amount {
   text-align: center;
   margin-top: 20px;
@@ -284,7 +289,7 @@ body {
 .add_card_container button {
   width: 100%;
   padding: 15px;
-  border: 2px solid white;
+  border: 1px solid white;
   border-radius: 5px;
   background-color: transparent;
   color: white;
@@ -388,4 +393,138 @@ body {
 
 .rate_service .stars_container .star.active {
   color: #ca4b49; /* Red color for active stars */
+}
+
+.footer {
+  display: inline-block;
+  margin-top: 10px;
+  text-align: center;
+  font-size: small;
+  width: 100%;
+  font-family: "Just Another Hand", cursive;
+  margin-bottom: 20px;
+}
+
+.footer a {
+  color: #309ceb;
+}
+
+.plus {
+  font-size: 25px;
+  padding: 4px 5px;
+}
+
+/* Dark/Light mode styles */
+/* Add these new styles at the beginning of your CSS file */
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.light-mode {
+  background-color: #ffffff;
+  color: #1b1b1b;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/* Update these existing styles */
+.btn_container button.active {
+  background-color: #ca4b49;
+  color: white;
+}
+
+body.light-mode .btn_container button.active {
+  background-color: #afcb35;
+  color: white;
+}
+
+.total_amount h2 {
+  color: #ca4b49;
+}
+
+body.light-mode .total_amount h2 {
+  color: #afcb35;
+}
+
+.tip_percentage .percentage li {
+  background-color: #646464;
+  color: white;
+}
+
+.tip_percentage .percentage li.active {
+  background-color: #ca4b49;
+}
+
+body.light-mode .tip_percentage .percentage li.active {
+  background-color: #afcb35;
+}
+
+.rate_service .stars_container .star.active {
+  color: #ca4b49;
+}
+
+body.light-mode .rate_service .stars_container .star.active {
+  color: #afcb35;
+}
+
+.bill_details .total_amount h1 {
+  color: #ca4b49;
+}
+
+body.light-mode .bill_details .total_amount h1 {
+  color: #afcb35;
+}
+
+.send_button {
+  background-color: #ca4b49;
+}
+
+body.light-mode .send_button {
+  background-color: #afcb35;
+}
+
+.pay_btn {
+  background-color: #ca4b49;
+}
+
+body.light-mode .pay_btn {
+  background-color: #323232;
+}
+
+/* Add these light mode styles */
+body.light-mode .main {
+  background-color: #ffffff;
+}
+
+body.light-mode .second_section,
+body.light-mode .bill_details {
+  background-color: #f0f0f0;
+}
+
+body.light-mode .bill_details th,
+body.light-mode .bill_details td {
+  background-color: #e0e0e0;
+}
+
+body.light-mode .feedback_input {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #1b1b1b;
+}
+
+body.light-mode .provider-button {
+  background-color: #e0e0e0;
+}
+
+body.light-mode .add_card_container button {
+  border-color: #1b1b1b;
+  color: #1b1b1b;
 }
