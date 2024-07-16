@@ -20,25 +20,25 @@ export function Payment() {
 
   const handleStarClick = (starRating: number) => {
     setRating(starRating);
+
+    // Update rate text based on tip percentage
+    if (starRating === 0) {
+      setRateText("Плохо 😞");
+    } else if (starRating == 1) {
+      setRateText("Нормально 😐");
+    } else if (starRating <= 2) {
+      setRateText("Хорошо 🙂");
+    } else if (starRating <= 3) {
+      setRateText("Очень хорошо 😊");
+    } else {
+      setRateText("Отлично 😃");
+    }
   };
 
   const handleTipClick = (tipPercentage: number) => {
     setSelectedTip(tipPercentage);
     const tipAmount = billAmount * (tipPercentage / 100);
     setTotalAmount(billAmount + tipAmount);
-
-    // Update rate text based on tip percentage
-    if (tipPercentage === 0) {
-      setRateText("Плохо 😞");
-    } else if (tipPercentage <= 5) {
-      setRateText("Нормально 😐");
-    } else if (tipPercentage <= 10) {
-      setRateText("Хорошо 🙂");
-    } else if (tipPercentage <= 15) {
-      setRateText("Очень хорошо 😊");
-    } else {
-      setRateText("Отлично 😃");
-    }
   };
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
