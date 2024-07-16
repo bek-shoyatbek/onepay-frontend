@@ -96,7 +96,7 @@ export function Payment() {
           </table>
           <div className="total_amount">
             <h2>Total Amount</h2>
-            <h1>$58</h1>
+            <h1>1 000 000</h1>
           </div>
         </div>
         <div className="payment_providers_container">
