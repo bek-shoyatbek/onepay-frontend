@@ -512,7 +512,7 @@ body.light-mode .bill_details {
 
 body.light-mode .bill_details th,
 body.light-mode .bill_details td {
-  background-color: #e0e0e0;
+  background-color: #ffffff;
 }
 
 body.light-mode .feedback_input {
@@ -521,7 +521,7 @@ body.light-mode .feedback_input {
 }
 
 body.light-mode .provider-button {
-  background-color: #e0e0e0;
+  background-color: #ffffff;
 }
 
 body.light-mode .add_card_container button {
