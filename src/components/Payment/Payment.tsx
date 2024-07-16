@@ -12,6 +12,7 @@ export function Payment() {
   const [billAmount, _] = useState(1000000); // Initial bill amount
   const [totalAmount, setTotalAmount] = useState(billAmount);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [rateText, setRateText] = useState("Оцените обслуживание");
 
   const handleButtonClick = (buttonType: string) => {
     setActiveButton(buttonType);
@@ -25,6 +26,19 @@ export function Payment() {
     setSelectedTip(tipPercentage);
     const tipAmount = billAmount * (tipPercentage / 100);
     setTotalAmount(billAmount + tipAmount);
+
+    // Update rate text based on tip percentage
+    if (tipPercentage === 0) {
+      setRateText("Плохо 😞");
+    } else if (tipPercentage <= 5) {
+      setRateText("Нормально 😐");
+    } else if (tipPercentage <= 10) {
+      setRateText("Хорошо 🙂");
+    } else if (tipPercentage <= 15) {
+      setRateText("Очень хорошо 😊");
+    } else {
+      setRateText("Отлично 😃");
+    }
   };
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -103,7 +117,7 @@ export function Payment() {
           </div>
 
           <div className="rate_service">
-            <p className="rate">Отлично 😊</p>
+            <p className="rate">{rateText}</p>
             <div className="stars_container">
               {[1, 2, 3, 4, 5].map((star) => (
                 <span
