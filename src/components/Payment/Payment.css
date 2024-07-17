@@ -167,6 +167,14 @@ body {
   justify-content: center;
 }
 
+.rate_service .rate_title {
+  font-size: 20px;
+}
+
+.rate_service .rate_p {
+  font-size: 14px;
+}
+
 .rate_service .stars_container .star {
   color: gold;
   font-size: 24px;
@@ -176,8 +184,9 @@ body {
 
 .bill_details {
   padding: 20px;
+
   background-color: #2d2c2c;
-  margin-top: 3%;
+  margin: 3% 3% 0 3%;
   border-radius: 10px;
 }
 
@@ -185,6 +194,7 @@ body {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 5px;
+  border-radius: 4px;
 }
 
 .bill_details th,
@@ -198,11 +208,15 @@ body {
 .bill_details th {
   font-weight: bold;
   width: 100%;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .bill_details td {
   font-weight: bolder;
   font-size: large;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 .bill_details .total_amount {
@@ -339,30 +353,26 @@ body {
 .feedback_container {
   display: flex;
   align-items: center;
-  margin-top: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 4px;
+  margin: 10px;
+  border-radius: 4px;
 }
 
 .feedback_input {
   flex-grow: 1;
   padding: 15px;
   border: none;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
   font-size: 16px;
-}
-
-.feedback_input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .send_button {
   background-color: #ca4b49;
   border: none;
   border-radius: 5px;
-  width: 43px;
-  height: 46px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   padding: 0;
 }

@@ -18,6 +18,10 @@ export function Payment() {
     setActiveButton(buttonType);
   };
 
+  const addSpaceIntoAmount = (amount: number) => {
+    return amount.toLocaleString().split(",").join(" ");
+  };
+
   const handleStarClick = (starRating: number) => {
     setRating(starRating);
 
@@ -105,7 +109,7 @@ export function Payment() {
         </div>
         <div className="total_amount">
           <h1>Сумма счета</h1>
-          <h2>{totalAmount.toLocaleString()}</h2>
+          <h2>{addSpaceIntoAmount(totalAmount)}</h2>
         </div>
 
         <div className="second_section">
@@ -127,7 +131,8 @@ export function Payment() {
           </div>
 
           <div className="rate_service">
-            <p className="rate">{rateText}</p>
+            <h2 className="rate_title">Оцените заведение</h2>
+            <p className="rate_p">{rateText}</p>
             <div className="stars_container">
               {[1, 2, 3, 4, 5].map((star) => (
                 <span
@@ -160,6 +165,7 @@ export function Payment() {
                   <FontAwesomeIcon
                     icon={faPaperPlane}
                     size="xl"
+                    rotate={180}
                     color="white"
                   />
                 </span>
@@ -172,21 +178,21 @@ export function Payment() {
             <tbody>
               <tr>
                 <th>Счет:</th>
-                <td>{billAmount.toLocaleString()} сум</td>
+                <td>{addSpaceIntoAmount(billAmount)} сум</td>
               </tr>
               <tr>
                 <th>Чаевые(5%)</th>
-                <td>{(totalAmount - billAmount).toLocaleString()} сум</td>
+                <td>{addSpaceIntoAmount(totalAmount - billAmount)} сум</td>
               </tr>
               <tr>
                 <th>Комиссия сервиса(5%)</th>
-                <td>{(totalAmount * 0.1).toLocaleString()} сум</td>
+                <td>{addSpaceIntoAmount(totalAmount * 0.1)} сум</td>
               </tr>
             </tbody>
           </table>
           <div className="total_amount">
             <h2>Итоговая оплата</h2>
-            <h1>{totalAmount.toLocaleString()}</h1>
+            <h1>{totalAmount.toLocaleString().split(",").join(" ")}</h1>
           </div>
         </div>
 
