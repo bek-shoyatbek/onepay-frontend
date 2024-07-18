@@ -4,6 +4,7 @@ import "./Payment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faPaperPlane, faSun } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
+import bgImage from "../../assets/background.png";
 
 export function Payment() {
   const [activeButton, setActiveButton] = useState("bill_and_tip");
@@ -59,7 +60,7 @@ export function Payment() {
       </button>
       <div className="main">
         <div className="background_image">
-          <img src={ASSETS.backgroundImage} alt="background-image" />
+          <img src={bgImage} alt="background-image" />
         </div>
         <div className="waiter_info">
           <img src={ASSETS.waiterImage} alt="waiter-image" />
