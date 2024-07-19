@@ -15,7 +15,6 @@ body {
   position: relative;
   height: 75vh;
   overflow: hidden;
-  -webkit-filter: blur(1px);
 }
 
 .background_image img {
@@ -142,9 +141,10 @@ body {
   justify-content: center;
   gap: 15px;
 }
+
 .tip_percentage .percentage li {
-  width: 70px;
-  height: 57px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
   color: white;
