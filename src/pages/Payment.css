@@ -299,7 +299,7 @@ body {
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 20px;
   margin: 0 5px;
   margin-left: -5px;
 }
