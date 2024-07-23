@@ -1,16 +1,43 @@
-import { ASSETS } from "../../constants/assets/assets";
-import { paymentProviders } from "../../constants/payment-services/payment-providers";
+import { ASSETS } from "../constants/assets/assets";
+import { paymentProviders } from "../constants/payment-services/payment-providers";
 import "./Payment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faPaperPlane, faSun } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import bgImage from "../../assets/background.png";
+import bgImage from "../assets/background.png";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
+interface QueryParams {
+  orderId: string;
+  userId: string;
+  spotId: string;
+  total: string;
+}
+
+const API = "https://z73fb93d-6500.euw.devtunnels.ms/api/v1";
 export function Payment() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const getQueryParam = (key: keyof QueryParams): string =>
+    queryParams.get(key) || "";
+
+  useEffect(() => {
+    async function pushToCache(data: any) {
+      localStorage.setItem("cache", JSON.stringify(data));
+
+      const respos = await axios.post(`${API}/pushMemCache`, data);
+
+      console.log(respos);
+    }
+
+    pushToCache(queryParams);
+  }, []);
+
   const [activeButton, setActiveButton] = useState("bill_and_tip");
   const [rating, setRating] = useState(0);
   const [selectedTip, setSelectedTip] = useState(0);
-  const [billAmount, _] = useState(1000000); // Initial bill amount
+  const [billAmount, _] = useState(parseFloat(getQueryParam("total"))); // Initial bill amount
   const [totalAmount, setTotalAmount] = useState(billAmount);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [rateText, setRateText] = useState("Оцените обслуживание");
