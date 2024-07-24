@@ -14,16 +14,6 @@ export const paymentProviders = [
     name: "click",
     icon: "https://api.logobank.uz/media/logos_png/Click-01.png",
   },
-  {
-    id: "payme",
-    name: "payme",
-    icon: "https://api.logobank.uz/media/logos_png/payme-01.png",
-  },
-  {
-    id: "payme",
-    name: "payme",
-    icon: "https://api.logobank.uz/media/logos_png/payme-01.png",
-  },
 ];
 
 export enum PaymentProviders {

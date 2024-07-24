@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import bgImage from "../assets/background.png";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { CONFIGS } from "../configs";
+import { initTransaction } from "../helpers/payment/init-transaction";
 
 interface QueryParams {
   orderId: string;
@@ -15,7 +17,7 @@ interface QueryParams {
   total: string;
 }
 
-const API = "https://z73fb93d-6500.euw.devtunnels.ms/api/v1";
+const API = CONFIGS.api;
 export function Payment() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -26,9 +28,7 @@ export function Payment() {
     async function pushToCache(data: any) {
       localStorage.setItem("cache", JSON.stringify(data));
 
-      const respos = await axios.post(`${API}/pushMemCache`, data);
-
-      console.log(respos);
+      await axios.post(`${API}/pushMemCache`, data);
     }
 
     pushToCache(queryParams);
@@ -41,6 +41,7 @@ export function Payment() {
   const [totalAmount, setTotalAmount] = useState(billAmount);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [rateText, setRateText] = useState("Оцените обслуживание");
+  const [provider, setProvider] = useState<"uzum" | "payme" | "click">("payme");
 
   const handleButtonClick = (buttonType: string) => {
     setActiveButton(buttonType);
@@ -79,6 +80,20 @@ export function Payment() {
   useEffect(() => {
     document.body.classList.toggle("light-mode", !isDarkMode);
   }, [isDarkMode]);
+
+  const handlePayBtnClick = async () => {
+    // init transaction
+    const paymentProviderPageURL = await initTransaction({
+      orderId: getQueryParam("orderId"),
+      userId: getQueryParam("userId") || "",
+      amount: totalAmount,
+      spotId: getQueryParam("spotId") || "",
+      provider: provider as "uzum" | "payme" | "click",
+      tip: selectedTip,
+    });
+
+    window.location.href = paymentProviderPageURL;
+  };
 
   return (
     <>
@@ -230,7 +245,9 @@ export function Payment() {
             {paymentProviders.map((provider) => (
               <button
                 key={provider.name}
-                onClick={() => alert(provider.name)}
+                onClick={() =>
+                  setProvider(provider.name as "uzum" | "payme" | "click")
+                }
                 className="provider-button"
               >
                 <img
@@ -248,7 +265,9 @@ export function Payment() {
               Добавить карту <span className="plus">+</span>{" "}
             </button>
           </div>
-          <button className="pay_btn">Оплатить</button>
+          <button className="pay_btn" onClick={handlePayBtnClick}>
+            Оплатить
+          </button>
         </div>
         <footer className="footer">
           <p className="footer_text">

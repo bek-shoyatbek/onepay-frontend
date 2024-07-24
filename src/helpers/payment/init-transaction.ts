@@ -1,15 +1,17 @@
+import { CONFIGS } from "../../configs";
 import { InitTransactionDto } from "../../types/payment/init-transaction";
-const API = import.meta.env.VITE_API;
+import axios from "axios";
+
+const apiBackend = CONFIGS.api;
 
 export async function initTransaction(initTrans: InitTransactionDto) {
-  const response = await fetch(`${API}/api/v1/payment-services/init`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(initTrans),
-  });
-  const data = await response.json();
-  console.log("initTransaction", data);
-  return data;
+  try {
+    const response = await axios.post(`${apiBackend}/payment/init`, initTrans);
+    const redirectURL = response.data?.url;
+    console.log("redirectURL", redirectURL);
+    return redirectURL;
+  } catch (err) {
+    console.error("Error while initializing transaction:\n", err);
+    throw err;
+  }
 }
