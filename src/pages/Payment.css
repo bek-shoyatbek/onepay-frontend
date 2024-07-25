@@ -13,7 +13,7 @@ body {
 }
 .background_image {
   position: relative;
-  height: 75vh;
+  height: 45vh;
   overflow: hidden;
 }
 
@@ -462,7 +462,7 @@ body.light-mode {
 }
 
 body.light-mode .btn_container button.active {
-  background-color: #afcb35;
+  background-color: #ca4b49;
   color: white;
 }
 
@@ -480,7 +480,7 @@ body.light-mode .btn_container button {
 }
 
 body.light-mode .total_amount h2 {
-  color: #afcb35;
+  color: #ca4b49;
 }
 
 .tip_percentage .percentage li {
@@ -493,7 +493,7 @@ body.light-mode .total_amount h2 {
 }
 
 body.light-mode .tip_percentage .percentage li.active {
-  background-color: #afcb35;
+  background-color: #ca4b49;
 }
 
 .rate_service .stars_container .star.active {
@@ -501,7 +501,7 @@ body.light-mode .tip_percentage .percentage li.active {
 }
 
 body.light-mode .rate_service .stars_container .star.active {
-  color: #afcb35;
+  color: #ca4b49;
 }
 
 body.light-mode .rate_service .feedback_container {
@@ -517,7 +517,7 @@ body.light-mode .rate_service .feedback_input {
 }
 
 body.light-mode .bill_details .total_amount h1 {
-  color: #afcb35;
+  color: #ca4b49;
 }
 
 .send_button {
@@ -525,7 +525,7 @@ body.light-mode .bill_details .total_amount h1 {
 }
 
 body.light-mode .send_button {
-  background-color: #afcb35;
+  background-color: #ca4b49;
 }
 
 .pay_btn {
