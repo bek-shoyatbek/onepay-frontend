@@ -1,4 +1,4 @@
-import { ASSETS } from "../constants/assets/assets";
+import { ASSETS } from "../constants/assets";
 import { paymentProviders } from "../constants/payment-services/payment-providers";
 import "./Payment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,33 +6,15 @@ import { faMoon, faPaperPlane, faSun } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import bgImage from "../assets/background.png";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
-import { CONFIGS } from "../configs";
 import { initTransaction } from "../helpers/payment/init-transaction";
+import { QueryParams } from "../types/payment/query-params";
+import { PaymentProvider, Terminal } from "../constants";
 
-interface QueryParams {
-  orderId: string;
-  userId: string;
-  spotId: string;
-  total: string;
-}
-
-const API = CONFIGS.api;
 export function Payment() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const getQueryParam = (key: keyof QueryParams): string =>
     queryParams.get(key) || "";
-
-  useEffect(() => {
-    async function pushToCache(data: any) {
-      localStorage.setItem("cache", JSON.stringify(data));
-
-      await axios.post(`${API}/pushMemCache`, data);
-    }
-
-    pushToCache(queryParams);
-  }, []);
 
   const [activeButton, setActiveButton] = useState("bill_and_tip");
   const [rating, setRating] = useState(0);
@@ -41,7 +23,9 @@ export function Payment() {
   const [totalAmount, setTotalAmount] = useState(billAmount);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [rateText, setRateText] = useState("Оцените обслуживание");
-  const [provider, setProvider] = useState<"uzum" | "payme" | "click">("payme");
+  const [provider, setProvider] = useState<PaymentProvider>(
+    PaymentProvider.PAYME
+  );
 
   const handleButtonClick = (buttonType: string) => {
     setActiveButton(buttonType);
@@ -84,11 +68,12 @@ export function Payment() {
   const handlePayBtnClick = async () => {
     // init transaction
     const paymentProviderPageURL = await initTransaction({
-      orderId: getQueryParam("orderId"),
+      orderId: getQueryParam("orderId").slice(2),
       userId: getQueryParam("userId") || "",
       amount: totalAmount,
       spotId: getQueryParam("spotId") || "",
-      provider: provider as "uzum" | "payme" | "click",
+      provider: provider,
+      terminal: getQueryParam("terminal") as Terminal,
       tip: selectedTip,
     });
 
@@ -103,7 +88,18 @@ export function Payment() {
       <div className="main">
         <div className="background_image">
           <img src={bgImage} alt="background-image" />
+          <div className="round_number">
+            <p className="round_text">9,8</p>
+          </div>
+
+          <div className="restaurant_info">
+            <h2 className="restaurant_name">BON</h2>
+            <p className="restaurant_info_details">
+              <b>Westminster</b> ул. Овози 24
+            </p>
+          </div>
         </div>
+
         <div className="waiter_info">
           <img src={ASSETS.waiterImage} alt="waiter-image" />
           <div className="waiter_details">
@@ -245,9 +241,7 @@ export function Payment() {
             {paymentProviders.map((provider) => (
               <button
                 key={provider.name}
-                onClick={() =>
-                  setProvider(provider.name as "uzum" | "payme" | "click")
-                }
+                onClick={() => setProvider(provider.name)}
                 className="provider-button"
               >
                 <img
