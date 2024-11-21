@@ -1,14 +1,15 @@
-import { ASSETS } from "../constants/assets";
-import { paymentProviders } from "../constants/payment-services/payment-providers";
-import "./Payment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faPaperPlane, faSun } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import bgImage from "../assets/background.png";
 import { useLocation } from "react-router-dom";
-import { initTransaction } from "../helpers/payment/init-transaction";
+
+import { ASSETS } from "../constants/assets";
+import { paymentProviders } from "../constants/payment-services/payment-providers";
 import { QueryParams } from "../types/payment/query-params";
 import { PaymentProvider, Terminal } from "../constants";
+import "./Payment.css";
+import bgImage from "../assets/background.png";
+import { initTransaction } from "../helpers/payment/init-transaction";
 
 export function Payment() {
   const location = useLocation();
@@ -70,9 +71,10 @@ export function Payment() {
     const paymentProviderPageURL = await initTransaction({
       orderId: getQueryParam("orderId").slice(2),
       userId: getQueryParam("userId") || "",
-      amount: totalAmount,
+      total: totalAmount,
       spotId: getQueryParam("spotId") || "",
       provider: provider,
+      tableId: getQueryParam("tableId") || "",
       terminal: getQueryParam("terminal") as Terminal,
       tip: selectedTip,
     });
