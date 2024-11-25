@@ -3,13 +3,12 @@ import { faMoon, faPaperPlane, faSun } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import { ASSETS } from "../constants/assets";
-import { paymentProviders } from "../constants/payment-services/payment-providers";
-import { QueryParams } from "../types/payment/query-params";
-import { PaymentProvider, Terminal } from "../constants";
+import { paymentProviders } from "../../constants/payment-services/payment-providers";
+import { QueryParams } from "../../types/payment/query-params";
+import { ASSETS, PaymentProvider, Terminal } from "../../constants";
 import "./Payment.css";
-import bgImage from "../assets/background.png";
-import { initTransaction } from "../helpers/payment/init-transaction";
+import bgImage from "../../assets/background.png";
+import { initTransaction } from "../../helpers/payment/init-transaction";
 
 export function Payment() {
   const location = useLocation();
