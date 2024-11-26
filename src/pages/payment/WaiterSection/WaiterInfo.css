@@ -1,0 +1,47 @@
+.waiter_info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.waiter_info img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.waiter_details {
+    display: flex;
+    flex-direction: column;
+}
+
+.waiter_status {
+    font-size: 14px;
+    color: #888;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.waiter_details h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.waiter_stars {
+    margin-top: -10px;
+}
+
+.waiter_stars .stars {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+}
+
+.waiter_stars .star {
+    color: gold;
+    font-size: 20px;
+    margin-right: 2px;
+}

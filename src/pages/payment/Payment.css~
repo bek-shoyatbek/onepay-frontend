@@ -310,7 +310,7 @@ img {
 }
 
 .provider-button.active {
-  border: 2px solid #CA4B49;
+  border-color: #CA4B49;
 }
 
 .provider-icon {
