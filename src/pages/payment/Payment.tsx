@@ -63,7 +63,7 @@ export function Payment() {
   };
 
   const handlePayBtnClick = async () => {
-
+    console.log("Paying:", totalAmount);
     if(totalAmount===0){
       setPayBtnTries(pre=>pre+1);
       if(payBtnTries===3){
