@@ -1,6 +1,6 @@
 interface BillingTypeProps {
   activeButton: string;
-  onButtonClick: (buttonType: string) => void;
+  onButtonClick: (buttonType: 'bill_and_tip' | 'tip_only') => void;
 }
 
 export const BillingType = ({
@@ -19,7 +19,7 @@ export const BillingType = ({
       </button>
       <button
         className={`bill_only ${activeButton === "bill_only" ? "active" : ""}`}
-        onClick={() => onButtonClick("bill_only")}
+        onClick={() => onButtonClick("tip_only")}
       >
         Только чаевые
       </button>
