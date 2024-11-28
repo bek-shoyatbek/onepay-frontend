@@ -58,11 +58,11 @@ export function Payment() {
   const handleTipClick = (tipPercentage: number) => {
     setSelectedTip(tipPercentage);
     const tipAmount = Math.floor(billAmount * (tipPercentage / 100));
-    setTotalAmount(billAmount + tipAmount);
+    setTotalAmount(activeButton === "tip_only" ? tipAmount : billAmount + tipAmount);
   };
 
   const handlePayBtnClick = async () => {
-    console.log("orderId: ", getQueryParam("orderId"));
+
     window.location.href = await initTransaction({
       orderId: getQueryParam("orderId"),
       userId: getQueryParam("userId") || "",
@@ -80,7 +80,10 @@ export function Payment() {
     document.body.classList.toggle("light-mode", !isDarkMode);
   }, [isDarkMode]);
 
-
+  useEffect(() => {
+    const tipAmount = Math.floor(billAmount * (selectedTip / 100));
+    setTotalAmount(activeButton === "tip_only" ? tipAmount : billAmount + tipAmount);
+  }, [activeButton, billAmount, selectedTip]);
 
 
   return (

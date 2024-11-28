@@ -18,7 +18,7 @@ export const BillingType = ({
         Счет и чаевые
       </button>
       <button
-        className={`bill_only ${activeButton === "bill_only" ? "active" : ""}`}
+        className={`bill_only ${activeButton === "tip_only" ? "active" : ""}`}
         onClick={() => onButtonClick("tip_only")}
       >
         Только чаевые
