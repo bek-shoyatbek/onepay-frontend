@@ -13,6 +13,7 @@ import {PaymentButtons} from "./PaymentSection/PaymentButtons";
 import {Footer} from "./Footer/Footer";
 import {RatingSelector} from "./RatingSection/RatingSection";
 import "./Payment.css";
+import {toast} from "react-toastify";
 
 export function Payment() {
   const location = useLocation();
@@ -30,7 +31,7 @@ export function Payment() {
   const [provider, setProvider] = useState<PaymentProvider>(
     PaymentProvider.PAYME
   );
-
+  const [payBtnTries, setPayBtnTries] = useState(0);
 
   const handleButtonClick = (buttonType: 'bill_and_tip' | 'tip_only') => {
     setActiveButton(buttonType);
@@ -63,6 +64,12 @@ export function Payment() {
 
   const handlePayBtnClick = async () => {
 
+    if(totalAmount===0){
+      setPayBtnTries(pre=>pre+1);
+      if(payBtnTries===3){
+          toast.error("Попробуйте позже");
+      }
+    }
     window.location.href = await initTransaction({
       orderId: getQueryParam("orderId"),
       userId: getQueryParam("userId") || "",
@@ -120,7 +127,7 @@ export function Payment() {
         />
 
         <PaymentProviders onProviderSelect={setProvider} selectedProvider={provider} />
-        <PaymentButtons onPayClick={handlePayBtnClick} />
+        <PaymentButtons onPayClick={handlePayBtnClick}  isAllowed={totalAmount!==0}/>
         <Footer />
       </div>
     </>
