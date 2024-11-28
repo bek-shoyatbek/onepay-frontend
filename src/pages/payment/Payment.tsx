@@ -59,7 +59,7 @@ export function Payment() {
   const handleTipClick = (tipPercentage: number) => {
     setSelectedTip(tipPercentage);
     const tipAmount = Math.floor(billAmount * (tipPercentage / 100));
-    setTotalAmount(activeButton === "tip_only" ? tipAmount : billAmount + tipAmount);
+    setTotalAmount(activeButton === "tip_only" ? (tipAmount > 1000 ? tipAmount : 1000) : billAmount + tipAmount);
   };
 
   const handlePayBtnClick = async () => {
@@ -89,7 +89,7 @@ export function Payment() {
 
   useEffect(() => {
     const tipAmount = Math.floor(billAmount * (selectedTip / 100));
-    setTotalAmount(activeButton === "tip_only" ? tipAmount : billAmount + tipAmount);
+    setTotalAmount(activeButton === "tip_only" ?  (tipAmount > 1000 ? tipAmount : 1000) : billAmount + tipAmount);
   }, [activeButton, billAmount, selectedTip]);
 
 
