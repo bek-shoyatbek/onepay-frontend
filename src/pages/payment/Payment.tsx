@@ -1,8 +1,5 @@
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
-import {PaymentProvider, Terminal} from "../../constants";
-import {QueryParams} from "../../types/payment/query-params";
-import {initTransaction} from "../../helpers/payment/init-transaction";
 import {ThemeToggle} from "./Header/ThemeToggle";
 import {RestaurantInfo} from "./Header/RestaurantInfo";
 import {BillingType} from "./BillingSection/BillingType";
@@ -12,8 +9,11 @@ import {PaymentProviders} from "./PaymentSection/PaymentProviders";
 import {PaymentButtons} from "./PaymentSection/PaymentButtons";
 import {Footer} from "./Footer/Footer";
 import {RatingSelector} from "./RatingSection/RatingSection";
+import {QueryParams} from "../../types/query-params.type.ts";
+import {PaymentProvider} from "../../types/enums/provider.enum.ts";
+import {createTransaction} from "../../api";
+import {Terminal} from "../../types/enums/terminals.enum.ts";
 import "./Payment.css";
-import {toast} from "react-toastify";
 
 export function Payment() {
   const location = useLocation();
@@ -31,7 +31,6 @@ export function Payment() {
   const [provider, setProvider] = useState<PaymentProvider>(
     PaymentProvider.PAYME
   );
-  const [payBtnTries, setPayBtnTries] = useState(0);
 
   const handleButtonClick = (buttonType: 'bill_and_tip' | 'tip_only') => {
     setActiveButton(buttonType);
@@ -58,19 +57,14 @@ export function Payment() {
 
   const handleTipClick = (tipPercentage: number) => {
     setSelectedTip(tipPercentage);
-    const tipAmount = Math.floor(billAmount * (tipPercentage / 100));
+    const tipAmount = Math.floor(billAmount * (selectedTip / 100));
     setTotalAmount(activeButton === "tip_only" ? (tipAmount > 1000 ? tipAmount : 1000) : billAmount + tipAmount);
   };
 
   const handlePayBtnClick = async () => {
     console.log("Paying:", totalAmount);
-    if(totalAmount===0){
-      setPayBtnTries(pre=>pre+1);
-      if(payBtnTries===3){
-          toast.error("Попробуйте позже");
-      }
-    }
-    window.location.href = await initTransaction({
+
+    const newTransaction = {
       orderId: getQueryParam("orderId"),
       userId: getQueryParam("userId") || "",
       total: totalAmount,
@@ -80,7 +74,10 @@ export function Payment() {
       tableId: getQueryParam("tableId") || "",
       terminal: getQueryParam("terminal") as Terminal,
       tip: selectedTip,
-    });
+    };
+
+    window.location.href = await createTransaction(newTransaction);
+
   };
 
   useEffect(() => {
@@ -89,7 +86,11 @@ export function Payment() {
 
   useEffect(() => {
     const tipAmount = Math.floor(billAmount * (selectedTip / 100));
-    setTotalAmount(activeButton === "tip_only" ?  (tipAmount > 1000 ? tipAmount : 1000) : billAmount + tipAmount);
+    if(activeButton==="tip_only"){
+      setTotalAmount( tipAmount > 1000 ? tipAmount : 1000);
+    }else{
+      setTotalAmount(billAmount + tipAmount);
+    }
   }, [activeButton, billAmount, selectedTip]);
 
 

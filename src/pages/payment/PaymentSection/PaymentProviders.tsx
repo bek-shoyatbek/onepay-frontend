@@ -1,5 +1,6 @@
 import { paymentProviders } from "../../../constants";
-import { PaymentProvider } from "../../../constants";
+import {PaymentProvider} from "../../../types/enums/provider.enum.ts";
+
 
 interface PaymentProvidersProps {
   onProviderSelect: (provider: PaymentProvider) => void;
