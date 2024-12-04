@@ -1,11 +1,14 @@
 import "./Home.css";
+import Lottie from "lottie-react";
+import thanks from "../../animations/thanks.json";
 
 export function Home() {
   return (
     <div className="container">
-      <h1 className="title">Welcome to my payrest.uz app</h1>
+      <Lottie animationData={thanks} loop={true} />
+      <h1 className="title">Thank you for using our app</h1>
       <p className="description">
-        payrest.uz is a simple and easy to use app to make payments.
+        You can close this page.
       </p>
     </div>
   );
