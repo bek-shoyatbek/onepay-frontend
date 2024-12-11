@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { ThemeToggle } from "./Header/ThemeToggle";
-import { RestaurantInfo } from "./Header/RestaurantInfo";
-import { BillingType } from "./BillingSection/BillingType";
-import { TipSelector } from "./TipSection/TipSelector";
-import { BillDetails } from "./BillSection/BillDetails";
-import { PaymentProviders } from "./PaymentSection/PaymentProviders";
-import { PaymentButtons } from "./PaymentSection/PaymentButtons";
-import { Footer } from "./Footer/Footer";
-import { RatingSelector } from "./RatingSection/RatingSection";
-import { QueryParams } from "../../types/query-params.type.ts";
-import { PaymentProvider } from "../../types/enums/provider.enum.ts";
-import { createTransaction } from "../../api";
-import { Terminal } from "../../types/enums/terminals.enum.ts";
+import {
+  ThemeToggle,
+  RestaurantInfo,
+  BillingType,
+  TipSelector,
+  BillDetails,
+  PaymentProviders,
+  PaymentButtons,
+  Footer,
+  RatingSelector
+} from "@/components";
+import { Restaurant, Terminal, QueryParams, PaymentProvider } from "@/types";
+import bgDefault from "../../assets/bg-default.png";
+import { getRestaurants, createTransaction } from "@/api";
 import "./Payment.css";
-import { Restaurant } from "../../types/index.ts";
-import { getRestaurants } from "../../api/restaurant.ts";
 
 export function Payment() {
   const location = useLocation();
@@ -42,7 +41,8 @@ export function Payment() {
   useEffect(() => {
     const fetchRestaurantInfo = async () => {
       const data = await getRestaurants();
-    
+      console.log("data: ", data);
+
       setRestaurantInfo(data[0]);
     };
     fetchRestaurantInfo();
@@ -124,7 +124,7 @@ export function Payment() {
         <RestaurantInfo
           title={restaurantInfo?.title || "BON"}
           location={restaurantInfo?.location || "TASHKENT, UZBEKISTAN"}
-          image={(restaurantInfo?.image as string) || ""}
+          image={(restaurantInfo?.image as string) || bgDefault}
         />
         <BillingType
           activeButton={activeButton}

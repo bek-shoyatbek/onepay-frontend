@@ -1,5 +1,5 @@
 import "./WaiterInfo.css";
-import {ASSETS} from "../../../assets";
+import { ASSETS } from "../../assets";
 
 export const WaiterInfo = () => (
   <div className="waiter_info">

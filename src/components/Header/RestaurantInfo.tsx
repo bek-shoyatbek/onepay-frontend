@@ -1,4 +1,3 @@
-import bgImage from "../../../assets/bg.png";
 import "./RestaurantInfo.css";
 import { WaiterInfo } from "../WaiterSection/WaiterInfo.tsx";
 
@@ -16,7 +15,7 @@ export const RestaurantInfo = ({
   <div className="restaurant-info-container">
     <img
       className="restaurant-info-bg-image"
-      src={image ?? bgImage}
+      src={image}
       alt="background-image"
     />
     <div className="restaurant-info-round-number">

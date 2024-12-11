@@ -1,6 +1,5 @@
-import { paymentProviders } from "../../../constants";
-import {PaymentProvider} from "../../../types/enums/provider.enum.ts";
-
+import { paymentProviders } from "../../constants/index.ts";
+import { PaymentProvider } from "../../types/enums/provider.enum.ts";
 
 interface PaymentProvidersProps {
   onProviderSelect: (provider: PaymentProvider) => void;
@@ -18,7 +17,9 @@ export const PaymentProviders = ({
         <button
           key={provider.name}
           onClick={() => onProviderSelect(provider.name)}
-          className={`provider-button ${selectedProvider === provider.name ? "active" : ""}`}
+          className={`provider-button ${
+            selectedProvider === provider.name ? "active" : ""
+          }`}
         >
           <img
             src={provider.icon}
