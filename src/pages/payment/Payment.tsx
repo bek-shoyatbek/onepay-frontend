@@ -1,19 +1,21 @@
-import {useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
-import {ThemeToggle} from "./Header/ThemeToggle";
-import {RestaurantInfo} from "./Header/RestaurantInfo";
-import {BillingType} from "./BillingSection/BillingType";
-import {TipSelector} from "./TipSection/TipSelector";
-import {BillDetails} from "./BillSection/BillDetails";
-import {PaymentProviders} from "./PaymentSection/PaymentProviders";
-import {PaymentButtons} from "./PaymentSection/PaymentButtons";
-import {Footer} from "./Footer/Footer";
-import {RatingSelector} from "./RatingSection/RatingSection";
-import {QueryParams} from "../../types/query-params.type.ts";
-import {PaymentProvider} from "../../types/enums/provider.enum.ts";
-import {createTransaction} from "../../api";
-import {Terminal} from "../../types/enums/terminals.enum.ts";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { ThemeToggle } from "./Header/ThemeToggle";
+import { RestaurantInfo } from "./Header/RestaurantInfo";
+import { BillingType } from "./BillingSection/BillingType";
+import { TipSelector } from "./TipSection/TipSelector";
+import { BillDetails } from "./BillSection/BillDetails";
+import { PaymentProviders } from "./PaymentSection/PaymentProviders";
+import { PaymentButtons } from "./PaymentSection/PaymentButtons";
+import { Footer } from "./Footer/Footer";
+import { RatingSelector } from "./RatingSection/RatingSection";
+import { QueryParams } from "../../types/query-params.type.ts";
+import { PaymentProvider } from "../../types/enums/provider.enum.ts";
+import { createTransaction } from "../../api";
+import { Terminal } from "../../types/enums/terminals.enum.ts";
 import "./Payment.css";
+import { Restaurant } from "../../types/index.ts";
+import { getRestaurants } from "../../api/restaurant.ts";
 
 export function Payment() {
   const location = useLocation();
@@ -21,7 +23,9 @@ export function Payment() {
   const getQueryParam = (key: keyof QueryParams): string =>
     queryParams.get(key) || "";
 
-  const [activeButton, setActiveButton] = useState<'bill_and_tip' | 'tip_only'>("bill_and_tip");
+  const [activeButton, setActiveButton] = useState<"bill_and_tip" | "tip_only">(
+    "bill_and_tip"
+  );
   const [rating, setRating] = useState(0);
   const [selectedTip, setSelectedTip] = useState(0);
   const [billAmount] = useState(parseFloat(getQueryParam("total")));
@@ -31,8 +35,20 @@ export function Payment() {
   const [provider, setProvider] = useState<PaymentProvider>(
     PaymentProvider.PAYME
   );
+  const [restaurantInfo, setRestaurantInfo] = useState<
+    Restaurant & { createdAt: string; updatedAt: string }
+  >();
 
-  const handleButtonClick = (buttonType: 'bill_and_tip' | 'tip_only') => {
+  useEffect(() => {
+    const fetchRestaurantInfo = async () => {
+      const data = await getRestaurants();
+    
+      setRestaurantInfo(data[0]);
+    };
+    fetchRestaurantInfo();
+  }, []);
+
+  const handleButtonClick = (buttonType: "bill_and_tip" | "tip_only") => {
     setActiveButton(buttonType);
   };
 
@@ -58,7 +74,13 @@ export function Payment() {
   const handleTipClick = (tipPercentage: number) => {
     setSelectedTip(tipPercentage);
     const tipAmount = Math.floor(billAmount * (selectedTip / 100));
-    setTotalAmount(activeButton === "tip_only" ? (tipAmount > 1000 ? tipAmount : 1000) : billAmount + tipAmount);
+    setTotalAmount(
+      activeButton === "tip_only"
+        ? tipAmount > 1000
+          ? tipAmount
+          : 1000
+        : billAmount + tipAmount
+    );
   };
 
   const handlePayBtnClick = async () => {
@@ -77,7 +99,6 @@ export function Payment() {
     };
 
     window.location.href = await createTransaction(newTransaction);
-
   };
 
   useEffect(() => {
@@ -86,13 +107,12 @@ export function Payment() {
 
   useEffect(() => {
     const tipAmount = Math.floor(billAmount * (selectedTip / 100));
-    if(activeButton==="tip_only"){
-      setTotalAmount( tipAmount > 1000 ? tipAmount : 1000);
-    }else{
+    if (activeButton === "tip_only") {
+      setTotalAmount(tipAmount > 1000 ? tipAmount : 1000);
+    } else {
       setTotalAmount(billAmount + tipAmount);
     }
   }, [activeButton, billAmount, selectedTip]);
-
 
   return (
     <>
@@ -101,7 +121,11 @@ export function Payment() {
         onToggle={() => setIsDarkMode(!isDarkMode)}
       />
       <div className="main">
-        <RestaurantInfo />
+        <RestaurantInfo
+          title={restaurantInfo?.title || "BON"}
+          location={restaurantInfo?.location || "TASHKENT, UZBEKISTAN"}
+          image={(restaurantInfo?.image as string) || ""}
+        />
         <BillingType
           activeButton={activeButton}
           onButtonClick={handleButtonClick}
@@ -123,12 +147,18 @@ export function Payment() {
         <BillDetails
           billAmount={billAmount}
           totalAmount={totalAmount}
-          tip = {selectedTip}
+          tip={selectedTip}
           addSpaceIntoAmount={addSpaceIntoAmount}
         />
 
-        <PaymentProviders onProviderSelect={setProvider} selectedProvider={provider} />
-        <PaymentButtons onPayClick={handlePayBtnClick}  isAllowed={totalAmount!==0}/>
+        <PaymentProviders
+          onProviderSelect={setProvider}
+          selectedProvider={provider}
+        />
+        <PaymentButtons
+          onPayClick={handlePayBtnClick}
+          isAllowed={totalAmount !== 0}
+        />
         <Footer />
       </div>
     </>
