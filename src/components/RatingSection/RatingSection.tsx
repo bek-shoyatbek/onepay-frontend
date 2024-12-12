@@ -1,4 +1,4 @@
-import sendIcon from "../../../assets/send-icon.svg";
+import sendIcon from "../../assets/send-icon.svg";
 
 interface RatingSelectorProps {
   rating: number;

@@ -9,11 +9,16 @@ import {
   PaymentProviders,
   PaymentButtons,
   Footer,
-  RatingSelector
-} from "@/components";
-import { Restaurant, Terminal, QueryParams, PaymentProvider } from "@/types";
+  RatingSelector,
+} from "../../components";
+import {
+  Restaurant,
+  Terminal,
+  QueryParams,
+  PaymentProvider,
+} from "../../types";
 import bgDefault from "../../assets/bg-default.png";
-import { getRestaurants, createTransaction } from "@/api";
+import { getRestaurants, createTransaction } from "../../api";
 import "./Payment.css";
 
 export function Payment() {
@@ -41,7 +46,6 @@ export function Payment() {
   useEffect(() => {
     const fetchRestaurantInfo = async () => {
       const data = await getRestaurants();
-      console.log("data: ", data);
 
       setRestaurantInfo(data[0]);
     };

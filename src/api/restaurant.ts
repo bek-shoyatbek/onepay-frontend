@@ -3,8 +3,8 @@ import { Restaurant } from "../types";
 
 export const getRestaurants = async () => {
     try {
-        const response = await api.get<{ data: Restaurant[] }>(`/restaurants`);
-        return response.data.data;
+        const response = await api.get<Restaurant[]>(`/restaurants`);
+        return response.data;
     } catch (err) {
         console.error("Error while getting restaurants:\n", err);
         throw err;
