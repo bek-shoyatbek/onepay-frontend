@@ -45,9 +45,9 @@ export function Payment() {
 
   useEffect(() => {
     const fetchRestaurantInfo = async () => {
-      const data = await getRestaurants();
+      const data = await getRestaurants(getQueryParam("spotId"));
 
-      setRestaurantInfo(data[0]);
+      setRestaurantInfo(data.restaurants[0]);
     };
     fetchRestaurantInfo();
   }, []);

@@ -1,9 +1,10 @@
 import { api } from "../configs";
 import { Restaurant } from "../types";
 
-export const getRestaurants = async () => {
+export const getRestaurants = async (spotId: string) => {
     try {
-        const response = await api.get<Restaurant[]>(`/restaurants`);
+        const response = await api.get<{ restaurants: Restaurant[], pagination: { totalRestaurants: number, currentPage: number, totalPages: number } }>(`/restaurants?search=${spotId}`);
+
         return response.data;
     } catch (err) {
         console.error("Error while getting restaurants:\n", err);
